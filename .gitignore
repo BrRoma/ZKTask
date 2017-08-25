@@ -1,0 +1,6 @@
+*.iml
+*.log
+*.project
+target/
+.settings/
+.idea/

@@ -1,0 +1,104 @@
+<zk>
+	<style src="/widgets/input/form/style.css" />
+	<div apply="org.zkoss.bind.BindComposer, brad.SaleController"
+		 viewModel="@id('vm') @init('brad.SaleFormViewModel')"
+		 validationMessages="@id('vmsgs')"
+		 form="@id('fx') @save(vm.sale, before='submit') @validator('brad.SaleFormValidator')">
+		<grid>
+			<rows>
+				<row>
+					Card Number:
+					<hlayout>
+						<textbox constraint="no empty" value="@bind(fx.cardNumber)"
+								 width="150px" maxlength="20"  />
+						<label id="1" value="@bind(vmsgs.cardNumber)"/>
+					</hlayout>
+				</row>
+				<row>
+					Exp Date:
+					<hlayout>
+						<hbox align="center">
+							<datebox value="@bind(fx.expDate)"
+									 constraint="no past,no empty" format="@load(vm.dateFormat)"
+									 width="150px" />
+							<label id="2" value="@bind(vmsgs.expDate)"/>
+							Format :
+							<listbox selectedItem="@bind(vm.dateFormat)"
+									 mold="select">
+								<listitem label="Default" value="" />
+								<listitem label="yyyy/MM/dd"
+										  value="yyyy/MM/dd" />
+								<listitem label="MM-dd-yy" value="MM-dd-yy" />
+							</listbox>
+						</hbox>
+					</hlayout>
+				</row>
+				<row>
+					CSC Cod:
+					<hlayout>
+						<textbox constraint="no empty" value="@bind(fx.cscCode)"
+								 width="150px" maxlength="15" />
+						<label id="3" value="@bind(vmsgs.cscCode)"/>
+					</hlayout>
+				</row>
+				<row>
+					Amount:
+					<hlayout>
+						<intbox constraint="no empty" value="@bind(fx.amount)"
+								width="150px" />
+						<label id="4" value="@bind(vmsgs.amount)"/>
+					</hlayout>
+				</row>
+				<row>
+					Holder Name:
+					<hlayout>
+						<textbox constraint="no empty" value="@bind(fx.holderName)"
+								 width="150px" maxlength="150" />
+						<label id="5" value="@bind(vmsgs.holderName)"/>
+					</hlayout>
+				</row>
+				<row>
+					Address:
+					<vlayout>
+						<hlayout>
+							street: <textbox constraint="no empty" value="@bind(fx.street)"
+											 width="150px" maxlength="128"  />
+							city: <textbox constraint="no empty" value="@bind(fx.city)"
+										   width="150px" maxlength="50"  />
+							state: <textbox constraint="no empty"  value="@bind(fx.state)"
+											width="150px" maxlength="2"  />
+						</hlayout>
+					</vlayout>
+				</row>
+				<row>
+					ZIP Cod:
+					<hlayout>
+						<textbox constraint="no empty" value="@bind(fx.zipCode)"
+								 width="150px" maxlength="15" />
+						<label id="6" value="@bind(vmsgs.zipCode)"/>
+					</hlayout>
+				</row>
+				<row>
+					<hlayout>
+						<cell colspan="3" style="text-align:center">
+							<label visible="@load(empty vmsgs)"
+								   value="@load(empty vmsgs ? 'Form successfully submitted! and response code = A01' : '', before='submit')" />
+
+							<button label="Submit" onClick="@command('submit', sale=fx,
+																			   cardNumber=fx.cardNumber,
+																			   expDate=fx.expDate,
+																			   cscCode=fx.cscCode,
+																			   amount=fx.amount,
+																			   holderName=fx.holderName,
+																			   street = fx.street,
+																			   city=fx.city,
+																			   stage=fx.state,
+																			   zipCode=fx.zipCode)"
+									width="100px" height="30px" />
+						</cell>
+					</hlayout>
+				</row>
+			</rows>
+		</grid>
+	</div>
+</zk>
